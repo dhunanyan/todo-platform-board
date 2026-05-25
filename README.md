@@ -1,6 +1,6 @@
 <div align="center">
   <h1>Task Flow Board</h1>
-  <img src="./public/og-image.png" alt="Task Flow Board screenshot" width="860" />
+  <img src="https://raw.githubusercontent.com/dhunanyan/todo-platform-board/master/public/og-image.png" alt="Task Flow Board screenshot" width="860" />
 
   <p><strong>Production-ready draggable Kanban board for Web and Desktop.</strong></p>
 
@@ -16,7 +16,7 @@
 ## Overview
 
 <div align="center">
-  <img src="./docs/screenshot.png" alt="Task Flow Board screenshot" />
+  <img src="https://raw.githubusercontent.com/dhunanyan/todo-platform-board/master/docs/screenshot.png" alt="Task Flow Board screenshot" />
 </div>
 
 Task Flow Board is a dark-first task management app built with **Next.js App Router + Electron**.
