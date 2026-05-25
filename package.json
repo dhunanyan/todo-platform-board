@@ -12,7 +12,9 @@
     "build:desktop:mac": "cross-env PLATFORM=DESKTOP TARGET=MAC next build && electron-builder --mac",
     "build:desktop:lin": "cross-env PLATFORM=DESKTOP TARGET=LIN next build && electron-builder --linux",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prepare": "husky",
+    "lint:staged": "lint-staged"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
@@ -31,6 +33,10 @@
     "cross-env": "^7.0.3",
     "electron": "^30.5.1",
     "electron-builder": "24.13.3",
+    "eslint": "8.57.0",
+    "eslint-config-next": "15.3.2",
+    "husky": "9.1.7",
+    "lint-staged": "15.2.10",
     "typescript": "^5.8.3",
     "wait-on": "^9.0.10"
   },
@@ -147,5 +153,10 @@
     "typescript",
     "drag-and-drop",
     "jira-like"
-  ]
+  ],
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix --max-warnings=0"
+    ]
+  }
 }

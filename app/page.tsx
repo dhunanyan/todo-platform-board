@@ -4,7 +4,6 @@ import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import {
   DndContext,
-  DragCancelEvent,
   DragEndEvent,
   DragOverlay,
   DragStartEvent,
@@ -366,7 +365,7 @@ export default function HomePage() {
     setActiveTicketId(String(event.active.id));
   };
 
-  const handleDragCancel = (_event: DragCancelEvent) => {
+  const handleDragCancel = () => {
     setActiveTicketId(null);
   };
 
