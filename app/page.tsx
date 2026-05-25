@@ -32,6 +32,7 @@ import {
   GithubIcon,
   GlobeIcon,
   LinkedinIcon,
+  MailIcon,
   PlusIcon,
   ProcessIcon,
   TrashIcon,
@@ -447,6 +448,9 @@ export default function HomePage() {
       </main>
 
       <footer className="footer">
+        <p className="footer-copy">
+          © {new Date().getFullYear()} dhunanyan. All rights reserved.
+        </p>
         <div className="footer-icons">
           <a
             href="https://dhunanyan.com"
@@ -475,10 +479,15 @@ export default function HomePage() {
           >
             <LinkedinIcon size={16} />
           </a>
+          <a
+            href="mailto:info@dhunanyan.com"
+            aria-label="Email"
+            title="info@dhunanyan.com"
+            className="footer-icon-link"
+          >
+            <MailIcon size={16} />
+          </a>
         </div>
-        <p className="footer-copy">
-          © {new Date().getFullYear()} dhunanyan. All rights reserved.
-        </p>
       </footer>
 
       {showModal && (
