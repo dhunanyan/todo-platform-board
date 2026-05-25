@@ -37,22 +37,114 @@
     "appId": "com.todo.board",
     "productName": "Todo Board",
     "directories": {
-      "output": "release"
+      "output": "release",
+      "buildResources": "build-assets"
     },
     "files": [
       "electron/**/*",
       ".next/**/*",
       "out/**/*",
+      "public/**/*",
       "package.json"
     ],
     "mac": {
-      "target": "dmg"
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        }
+      ],
+      "category": "public.app-category.productivity",
+      "icon": "build-assets/icon.png",
+      "darkModeSupport": true,
+      "hardenedRuntime": false
     },
     "win": {
-      "target": "nsis"
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build-assets/icon.ico",
+      "publisherName": "Dhunanyan",
+      "verifyUpdateCodeSignature": false
     },
     "linux": {
-      "target": "AppImage"
+      "target": [
+        {
+          "target": "AppImage",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "deb",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "category": "Office",
+      "icon": "build-assets/icon.png",
+      "synopsis": "Draggable Kanban Todo Board",
+      "description": "TaskFlow Board is a productivity-focused draggable Kanban board built with Next.js and Electron."
+    },
+    "artifactName": "${productName}-${version}-${os}-${arch}.${ext}",
+    "buildVersion": "1.0.0",
+    "copyright": "Copyright © 2026 Dhunanyan",
+    "asar": true,
+    "compression": "maximum",
+    "npmRebuild": false,
+    "icon": "build-assets/icon.png",
+    "extraMetadata": {
+      "name": "taskflow-board",
+      "productName": "TaskFlow Board",
+      "description": "Dark-mode-first draggable Kanban board for web and desktop."
+    },
+    "dmg": {
+      "title": "TaskFlow Board",
+      "icon": "build-assets/icon.png",
+      "writeUpdateInfo": false
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "TaskFlow Board"
     }
-  }
+  },
+  "description": "TaskFlow Board: production-ready Next.js + Electron draggable Kanban board for Web and Desktop (macOS, Windows, Linux).",
+  "author": {
+    "name": "Dhunanyan",
+    "email": "contact@dhunanyan.com",
+    "url": "https://dhunanyan.com"
+  },
+  "license": "MIT",
+  "homepage": "https://dhunanyan.com/taskflow-board",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dhunanyan/todo-platform-board.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dhunanyan/todo-platform-board/issues",
+    "email": "contact@dhunanyan.com"
+  },
+  "keywords": [
+    "nextjs",
+    "electron",
+    "kanban",
+    "todo",
+    "task-management",
+    "desktop-app",
+    "typescript",
+    "drag-and-drop",
+    "jira-like"
+  ]
 }
