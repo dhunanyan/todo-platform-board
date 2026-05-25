@@ -2,9 +2,10 @@
 
 import { FormEvent, useEffect, useRef, useState } from "react";
 import LabelCreateModal from "@/components/LabelCreateModal";
+import CustomSelect from "@/components/CustomSelect";
 import { FlagIcon, LabelIcon, PlusIcon } from "@/components/icons";
-import { PRIORITIES, PRIORITY_META, STATUS_LABELS } from "@/lib/constants";
-import { Label, TicketPriority, TicketStatus } from "@/types/ticket";
+import { PRIORITIES, PRIORITY_META } from "@/lib/constants";
+import { Label, TicketPriority } from "@/types/ticket";
 
 type Props = {
   labels: Label[];
@@ -13,7 +14,7 @@ type Props = {
     title: string;
     description: string;
     labelId: string | null;
-    status: TicketStatus;
+    status: "OPEN";
     priority: TicketPriority;
   }) => void;
   onCreateLabel: (data: { name: string; color: string }) => string;
@@ -23,7 +24,6 @@ export default function TicketModal({ labels, onClose, onCreate, onCreateLabel }
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [labelId, setLabelId] = useState<string>("");
-  const [status, setStatus] = useState<TicketStatus>("OPEN");
   const [priority, setPriority] = useState<TicketPriority>(3);
   const [showLabelModal, setShowLabelModal] = useState(false);
   const titleRef = useRef<HTMLInputElement>(null);
@@ -48,7 +48,7 @@ export default function TicketModal({ labels, onClose, onCreate, onCreateLabel }
       title: title.trim(),
       description: description.trim(),
       labelId: labelId || null,
-      status,
+      status: "OPEN",
       priority
     });
     onClose();
@@ -67,28 +67,33 @@ export default function TicketModal({ labels, onClose, onCreate, onCreateLabel }
 
             <label className="field-label">
               Description
-              <textarea className="form-control" value={description} onChange={(e) => setDescription(e.target.value)} rows={4} />
+              <textarea className="form-control textarea-fixed" value={description} onChange={(e) => setDescription(e.target.value)} rows={4} />
             </label>
 
-            <label className="field-label">
-              <LabelIcon size={14} /> Label
-              <select className="form-control" value={labelId} onChange={(e) => handleLabelChange(e.target.value)}>
-                <option value="">No label</option>
-                {labels.map((label) => (
-                  <option key={label.id} value={label.id}>{label.name}</option>
-                ))}
-                <option value="__create__">+ Create label</option>
-              </select>
-            </label>
-
-            <label className="field-label">
-              Status
-              <select className="form-control" value={status} onChange={(e) => setStatus(e.target.value as TicketStatus)}>
-                {Object.entries(STATUS_LABELS).map(([value, label]) => (
-                  <option key={value} value={value}>{label}</option>
-                ))}
-              </select>
-            </label>
+            <CustomSelect
+              label={<><LabelIcon size={14} /> Label</>}
+              value={labelId}
+              onChange={handleLabelChange}
+              options={[
+                {
+                  value: "",
+                  label: <span>No label</span>
+                },
+                ...labels.map((label) => ({
+                  value: label.id,
+                  label: (
+                    <span className="option-with-dot">
+                      <span className="dot" style={{ backgroundColor: label.color }} />
+                      {label.name}
+                    </span>
+                  )
+                })),
+                {
+                  value: "__create__",
+                  label: <span>+ Create label</span>
+                }
+              ]}
+            />
 
             <div className="field-label"><FlagIcon size={14} /> Priority</div>
 

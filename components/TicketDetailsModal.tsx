@@ -2,6 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import LabelCreateModal from "@/components/LabelCreateModal";
+import CustomSelect from "@/components/CustomSelect";
 import { CheckIcon, FlagIcon, LabelIcon, TrashIcon } from "@/components/icons";
 import { PRIORITIES, PRIORITY_META, STATUS_LABELS } from "@/lib/constants";
 import { Label, Ticket, TicketStatus } from "@/types/ticket";
@@ -59,28 +60,43 @@ export default function TicketDetailsModal({ ticket, labels, onClose, onSave, on
 
             <label className="field-label">
               Description
-              <textarea className="form-control" value={description} onChange={(e) => setDescription(e.target.value)} rows={4} />
+              <textarea className="form-control textarea-fixed" value={description} onChange={(e) => setDescription(e.target.value)} rows={4} />
             </label>
 
-            <label className="field-label">
-              <LabelIcon size={14} /> Label
-              <select className="form-control" value={labelId} onChange={(e) => handleLabelChange(e.target.value)}>
-                <option value="">No label</option>
-                {labels.map((label) => (
-                  <option key={label.id} value={label.id}>{label.name}</option>
-                ))}
-                <option value="__create__">+ Create label</option>
-              </select>
-            </label>
+            <CustomSelect
+              label={<><LabelIcon size={14} /> Label</>}
+              value={labelId}
+              onChange={handleLabelChange}
+              options={[
+                {
+                  value: "",
+                  label: <span>No label</span>
+                },
+                ...labels.map((label) => ({
+                  value: label.id,
+                  label: (
+                    <span className="option-with-dot">
+                      <span className="dot" style={{ backgroundColor: label.color }} />
+                      {label.name}
+                    </span>
+                  )
+                })),
+                {
+                  value: "__create__",
+                  label: <span>+ Create label</span>
+                }
+              ]}
+            />
 
-            <label className="field-label">
-              Status
-              <select className="form-control" value={status} onChange={(e) => setStatus(e.target.value as TicketStatus)}>
-                {Object.entries(STATUS_LABELS).map(([value, label]) => (
-                  <option key={value} value={value}>{label}</option>
-                ))}
-              </select>
-            </label>
+            <CustomSelect
+              label="Status"
+              value={status}
+              onChange={(value) => setStatus(value as TicketStatus)}
+              options={Object.entries(STATUS_LABELS).map(([value, label]) => ({
+                value,
+                label
+              }))}
+            />
 
             <div className="field-label"><FlagIcon size={14} /> Priority</div>
 

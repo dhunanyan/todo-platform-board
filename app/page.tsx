@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import Image from "next/image";
 import {
   DndContext,
   DragCancelEvent,
@@ -11,9 +12,13 @@ import {
   closestCorners,
   useDroppable,
   useSensor,
-  useSensors
+  useSensors,
 } from "@dnd-kit/core";
-import { SortableContext, useSortable, verticalListSortingStrategy } from "@dnd-kit/sortable";
+import {
+  SortableContext,
+  useSortable,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import TicketDetailsModal from "@/components/TicketDetailsModal";
 import ConfirmModal from "@/components/ConfirmModal";
@@ -21,13 +26,12 @@ import TicketModal from "@/components/TicketModal";
 import {
   AlertIcon,
   BlockIcon,
-  BoardIcon,
   CheckIcon,
   ClockIcon,
   FlagIcon,
   PlusIcon,
   ProcessIcon,
-  TrashIcon
+  TrashIcon,
 } from "@/components/icons";
 import { PRIORITY_META, STATUS_LABELS } from "@/lib/constants";
 import { loadBoardData, saveBoardData } from "@/lib/storage";
@@ -53,18 +57,25 @@ function SortableTicket({
   ticket,
   labels,
   onTicketClick,
-  ghost = false
+  ghost = false,
 }: {
   ticket: Ticket;
   labels: Label[];
   onTicketClick: (ticket: Ticket) => void;
   ghost?: boolean;
 }) {
-  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: ticket.id });
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: ticket.id });
 
   const style = {
     transform: CSS.Transform.toString(transform),
-    transition
+    transition,
   };
 
   const label = labels.find((item) => item.id === ticket.labelId) || null;
@@ -83,19 +94,30 @@ function SortableTicket({
   );
 }
 
-function TicketCardContent({ ticket, label }: { ticket: Ticket; label: Label | null }) {
+function TicketCardContent({
+  ticket,
+  label,
+}: {
+  ticket: Ticket;
+  label: Label | null;
+}) {
   return (
     <>
       <div className="ticket-topline">
         <span className="ticket-id">#TASK-{ticket.id}</span>
         <span className="priority-badge">
-          <FlagIcon size={12} style={{ color: PRIORITY_META[ticket.priority].color }} />
+          <FlagIcon
+            size={12}
+            style={{ color: PRIORITY_META[ticket.priority].color }}
+          />
           {PRIORITY_META[ticket.priority].label}
         </span>
       </div>
 
       <h4 className="ticket-title">{ticket.title}</h4>
-      <p className="ticket-desc">{ticket.description || "No description yet"}</p>
+      <p className="ticket-desc">
+        {ticket.description || "No description yet"}
+      </p>
 
       <div className="ticket-meta">
         {label ? (
@@ -111,12 +133,22 @@ function TicketCardContent({ ticket, label }: { ticket: Ticket; label: Label | n
   );
 }
 
-function Column({ status, tickets, labels, onTicketClick, onClearDoneTickets }: ColumnProps) {
+function Column({
+  status,
+  tickets,
+  labels,
+  onTicketClick,
+  onClearDoneTickets,
+}: ColumnProps) {
   const { setNodeRef, isOver } = useDroppable({ id: status });
   const isDoneColumn = status === "DONE";
 
   return (
-    <section ref={setNodeRef} className={`column ${isOver ? "column-over" : ""}`} id={status}>
+    <section
+      ref={setNodeRef}
+      className={`column ${isOver ? "column-over" : ""}`}
+      id={status}
+    >
       <div className="column-header">
         <div className="column-title-wrap">
           {statusIcon(status)}
@@ -139,9 +171,17 @@ function Column({ status, tickets, labels, onTicketClick, onClearDoneTickets }: 
       </div>
 
       <div className="column-content">
-        <SortableContext items={tickets.map((t) => t.id)} strategy={verticalListSortingStrategy}>
+        <SortableContext
+          items={tickets.map((t) => t.id)}
+          strategy={verticalListSortingStrategy}
+        >
           {tickets.map((ticket) => (
-            <SortableTicket key={ticket.id} ticket={ticket} labels={labels} onTicketClick={onTicketClick} />
+            <SortableTicket
+              key={ticket.id}
+              ticket={ticket}
+              labels={labels}
+              onTicketClick={onTicketClick}
+            />
           ))}
         </SortableContext>
       </div>
@@ -165,9 +205,9 @@ export default function HomePage() {
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
-        distance: 6
-      }
-    })
+        distance: 6,
+      },
+    }),
   );
 
   useEffect(() => {
@@ -194,7 +234,7 @@ export default function HomePage() {
       BLOCKED: [],
       IN_PROCESS: [],
       WAITING_TO_BE_FINISHED: [],
-      DONE: []
+      DONE: [],
     };
 
     tickets.forEach((t) => map[t.status].push(t));
@@ -202,15 +242,18 @@ export default function HomePage() {
   }, [tickets]);
 
   const activeTicket = useMemo(
-    () => (activeTicketId ? tickets.find((t) => t.id === activeTicketId) ?? null : null),
-    [activeTicketId, tickets]
+    () =>
+      activeTicketId
+        ? (tickets.find((t) => t.id === activeTicketId) ?? null)
+        : null,
+    [activeTicketId, tickets],
   );
 
   const handleCreateLabel = (data: { name: string; color: string }) => {
     const newLabel: Label = {
       id: `label-${Date.now()}`,
       name: data.name,
-      color: data.color
+      color: data.color,
     };
 
     setLabels((prev) => [...prev, newLabel]);
@@ -229,7 +272,11 @@ export default function HomePage() {
   };
 
   const handleUpdateTicket = (updatedTicket: Ticket) => {
-    setTickets((prev) => prev.map((ticket) => (ticket.id === updatedTicket.id ? updatedTicket : ticket)));
+    setTickets((prev) =>
+      prev.map((ticket) =>
+        ticket.id === updatedTicket.id ? updatedTicket : ticket,
+      ),
+    );
     setSelectedTicket(updatedTicket);
   };
 
@@ -245,11 +292,12 @@ export default function HomePage() {
   const requestDeleteTicket = (ticketId: string) => {
     setConfirmState({
       title: "Delete This Ticket?",
-      message: "Are you sure you want to delete this ticket? This action cannot be undone.",
+      message:
+        "Are you sure you want to delete this ticket? This action cannot be undone.",
       onConfirm: () => {
         handleDeleteTicket(ticketId);
         setConfirmState(null);
-      }
+      },
     });
   };
 
@@ -263,7 +311,7 @@ export default function HomePage() {
       onConfirm: () => {
         handleClearDoneTickets();
         setConfirmState(null);
-      }
+      },
     });
   };
 
@@ -281,7 +329,11 @@ export default function HomePage() {
     if (!ticket) return;
 
     if ((STATUSES as readonly string[]).includes(overId)) {
-      setTickets((prev) => prev.map((t) => (t.id === activeId ? { ...t, status: overId as TicketStatus } : t)));
+      setTickets((prev) =>
+        prev.map((t) =>
+          t.id === activeId ? { ...t, status: overId as TicketStatus } : t,
+        ),
+      );
       setActiveTicketId(null);
       return;
     }
@@ -297,10 +349,10 @@ export default function HomePage() {
         t.id === activeId
           ? {
               ...t,
-              status: targetTicket.status
+              status: targetTicket.status,
             }
-          : t
-      )
+          : t,
+      ),
     );
 
     setActiveTicketId(null);
@@ -320,7 +372,14 @@ export default function HomePage() {
     <div className="app-shell">
       <header className="topbar">
         <div className="brand">
-          <BoardIcon size={19} />
+          <div className="brand-logo">
+            <Image
+              src="/icons/app-icon.svg"
+              alt="TaskFlow logo"
+              width={34}
+              height={34}
+            />
+          </div>
           <div>
             <h1>TaskFlow Board</h1>
             <p>Dark agile planner with desktop + web runtime</p>
@@ -328,12 +387,21 @@ export default function HomePage() {
         </div>
 
         <div className="tab-strip" role="tablist" aria-label="Board stats">
-          <button className="tab active" role="tab" aria-selected="true">All ({total})</button>
-          <button className="tab" role="tab" aria-selected="false">Open ({grouped.OPEN.length})</button>
-          <button className="tab" role="tab" aria-selected="false">Done ({grouped.DONE.length})</button>
+          <button className="tab active" role="tab" aria-selected="true">
+            All ({total})
+          </button>
+          <button className="tab" role="tab" aria-selected="false">
+            Open ({grouped.OPEN.length})
+          </button>
+          <button className="tab" role="tab" aria-selected="false">
+            Done ({grouped.DONE.length})
+          </button>
         </div>
 
-        <button className="btn btn-primary create-btn" onClick={() => setShowModal(true)}>
+        <button
+          className="btn btn-primary create-btn"
+          onClick={() => setShowModal(true)}
+        >
           <PlusIcon size={16} /> Create Ticket
         </button>
       </header>
@@ -364,7 +432,10 @@ export default function HomePage() {
               <div className="drag-overlay-wrap ticket ticket-ghost">
                 <TicketCardContent
                   ticket={activeTicket}
-                  label={labels.find((item) => item.id === activeTicket.labelId) || null}
+                  label={
+                    labels.find((item) => item.id === activeTicket.labelId) ||
+                    null
+                  }
                 />
               </div>
             ) : null}
@@ -373,9 +444,15 @@ export default function HomePage() {
       </main>
 
       <footer className="footer">
-        <a href="https://dhunanyan.com" target="_blank" rel="noreferrer">dhunanyan.com</a>
-        <a href="https://github.com" target="_blank" rel="noreferrer">GitHub</a>
-        <a href="https://nextjs.org" target="_blank" rel="noreferrer">Next.js</a>
+        <a href="https://dhunanyan.com" target="_blank" rel="noreferrer">
+          dhunanyan.com
+        </a>
+        <a href="https://github.com" target="_blank" rel="noreferrer">
+          GitHub
+        </a>
+        <a href="https://nextjs.org" target="_blank" rel="noreferrer">
+          Next.js
+        </a>
       </footer>
 
       {showModal && (
