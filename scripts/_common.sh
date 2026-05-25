@@ -30,3 +30,8 @@ log_warn() {
 log_err() {
   echo -e "${C_RED}✖${C_RESET} $1"
 }
+
+clean_desktop_build_artifacts() {
+  log_step "Cleaning previous build artifacts (.next, out, release)"
+  rm -rf .next out release
+}

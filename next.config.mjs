@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'export',
+  assetPrefix: './',
   env: {
     NEXT_PUBLIC_PLATFORM: process.env.PLATFORM || 'WEB',
     NEXT_PUBLIC_TARGET: process.env.TARGET || 'MAC'
