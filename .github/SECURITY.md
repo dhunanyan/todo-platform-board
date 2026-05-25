@@ -14,4 +14,4 @@ Use GitHub Security Advisories:
 - https://github.com/dhunanyan/task-flow-board/security/advisories/new
 
 Or contact:
-- contact@dhunanyan.com
+- info@dhunanyan.com

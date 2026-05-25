@@ -73,7 +73,7 @@
         }
       ],
       "icon": "build-assets/icon.ico",
-      "publisherName": "Dhunanyan",
+      "publisherName": "dhunanyan",
       "verifyUpdateCodeSignature": false
     },
     "linux": {
@@ -98,7 +98,7 @@
     },
     "artifactName": "${productName}-${version}-${os}-${arch}.${ext}",
     "buildVersion": "1.0.0",
-    "copyright": "Copyright © 2026 Dhunanyan",
+    "copyright": "Copyright © 2026 dhunanyan",
     "asar": true,
     "compression": "maximum",
     "npmRebuild": false,
@@ -123,8 +123,8 @@
   },
   "description": "Task Flow Board: production-ready Next.js + Electron draggable Kanban board for Web and Desktop (macOS, Windows, Linux).",
   "author": {
-    "name": "Dhunanyan",
-    "email": "contact@dhunanyan.com",
+    "name": "dhunanyan",
+    "email": "info@dhunanyan.com",
     "url": "https://dhunanyan.com"
   },
   "license": "MIT",
@@ -135,7 +135,7 @@
   },
   "bugs": {
     "url": "https://github.com/dhunanyan/task-flow-board/issues",
-    "email": "contact@dhunanyan.com"
+    "email": "info@dhunanyan.com"
   },
   "keywords": [
     "nextjs",

@@ -29,6 +29,9 @@ import {
   CheckIcon,
   ClockIcon,
   FlagIcon,
+  GithubIcon,
+  GlobeIcon,
+  LinkedinIcon,
   PlusIcon,
   ProcessIcon,
   TrashIcon,
@@ -444,15 +447,38 @@ export default function HomePage() {
       </main>
 
       <footer className="footer">
-        <a href="https://dhunanyan.com" target="_blank" rel="noreferrer">
-          dhunanyan.com
-        </a>
-        <a href="https://github.com" target="_blank" rel="noreferrer">
-          GitHub
-        </a>
-        <a href="https://nextjs.org" target="_blank" rel="noreferrer">
-          Next.js
-        </a>
+        <div className="footer-icons">
+          <a
+            href="https://dhunanyan.com"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Website"
+            className="footer-icon-link"
+          >
+            <GlobeIcon size={16} />
+          </a>
+          <a
+            href="https://github.com/dhunanyan"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="GitHub"
+            className="footer-icon-link"
+          >
+            <GithubIcon size={16} />
+          </a>
+          <a
+            href="https://www.linkedin.com/in/dhunanyan"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="LinkedIn"
+            className="footer-icon-link"
+          >
+            <LinkedinIcon size={16} />
+          </a>
+        </div>
+        <p className="footer-copy">
+          © {new Date().getFullYear()} dhunanyan. All rights reserved.
+        </p>
       </footer>
 
       {showModal && (

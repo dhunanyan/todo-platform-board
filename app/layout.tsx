@@ -25,9 +25,9 @@ export const metadata: Metadata = {
     "Desktop App",
     "Drag and Drop",
   ],
-  authors: [{ name: "Dhunanyan", url: "https://dhunanyan.com" }],
-  creator: "Dhunanyan",
-  publisher: "Dhunanyan",
+  authors: [{ name: "dhunanyan", url: "https://dhunanyan.com" }],
+  creator: "dhunanyan",
+  publisher: "dhunanyan",
   category: "productivity",
   alternates: {
     canonical: "/",
