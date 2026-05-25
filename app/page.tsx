@@ -6,7 +6,6 @@ import {
   DragCancelEvent,
   DragEndEvent,
   DragOverlay,
-  DragOverEvent,
   DragStartEvent,
   PointerSensor,
   closestCorners,
@@ -157,7 +156,6 @@ export default function HomePage() {
   const [selectedTicket, setSelectedTicket] = useState<Ticket | null>(null);
   const [nextTicketId, setNextTicketId] = useState(1000);
   const [activeTicketId, setActiveTicketId] = useState<string | null>(null);
-  const [previewStatus, setPreviewStatus] = useState<TicketStatus | null>(null);
   const [confirmState, setConfirmState] = useState<{
     title: string;
     message: string;
@@ -207,21 +205,6 @@ export default function HomePage() {
     () => (activeTicketId ? tickets.find((t) => t.id === activeTicketId) ?? null : null),
     [activeTicketId, tickets]
   );
-
-  const projectedGrouped = useMemo(() => {
-    if (!activeTicket || !previewStatus) return grouped;
-
-    const projected: Record<TicketStatus, Ticket[]> = {
-      OPEN: grouped.OPEN.filter((t) => t.id !== activeTicket.id),
-      BLOCKED: grouped.BLOCKED.filter((t) => t.id !== activeTicket.id),
-      IN_PROCESS: grouped.IN_PROCESS.filter((t) => t.id !== activeTicket.id),
-      WAITING_TO_BE_FINISHED: grouped.WAITING_TO_BE_FINISHED.filter((t) => t.id !== activeTicket.id),
-      DONE: grouped.DONE.filter((t) => t.id !== activeTicket.id)
-    };
-
-    projected[previewStatus] = [...projected[previewStatus], activeTicket];
-    return projected;
-  }, [activeTicket, previewStatus, grouped]);
 
   const handleCreateLabel = (data: { name: string; color: string }) => {
     const newLabel: Label = {
@@ -288,7 +271,6 @@ export default function HomePage() {
     const { active, over } = event;
     if (!over) {
       setActiveTicketId(null);
-      setPreviewStatus(null);
       return;
     }
 
@@ -301,14 +283,12 @@ export default function HomePage() {
     if ((STATUSES as readonly string[]).includes(overId)) {
       setTickets((prev) => prev.map((t) => (t.id === activeId ? { ...t, status: overId as TicketStatus } : t)));
       setActiveTicketId(null);
-      setPreviewStatus(null);
       return;
     }
 
     const targetTicket = tickets.find((t) => t.id === overId);
     if (!targetTicket) {
       setActiveTicketId(null);
-      setPreviewStatus(null);
       return;
     }
 
@@ -324,33 +304,14 @@ export default function HomePage() {
     );
 
     setActiveTicketId(null);
-    setPreviewStatus(null);
   };
 
   const handleDragStart = (event: DragStartEvent) => {
     setActiveTicketId(String(event.active.id));
   };
 
-  const handleDragOver = (event: DragOverEvent) => {
-    const { over } = event;
-    if (!over) {
-      setPreviewStatus(null);
-      return;
-    }
-
-    const overId = String(over.id);
-    if ((STATUSES as readonly string[]).includes(overId)) {
-      setPreviewStatus(overId as TicketStatus);
-      return;
-    }
-
-    const targetTicket = tickets.find((t) => t.id === overId);
-    setPreviewStatus(targetTicket ? targetTicket.status : null);
-  };
-
   const handleDragCancel = (_event: DragCancelEvent) => {
     setActiveTicketId(null);
-    setPreviewStatus(null);
   };
 
   const total = tickets.length;
@@ -382,7 +343,6 @@ export default function HomePage() {
           sensors={sensors}
           collisionDetection={closestCorners}
           onDragStart={handleDragStart}
-          onDragOver={handleDragOver}
           onDragCancel={handleDragCancel}
           onDragEnd={handleDragEnd}
         >
@@ -391,7 +351,7 @@ export default function HomePage() {
               <Column
                 key={status}
                 status={status}
-                tickets={projectedGrouped[status]}
+                tickets={grouped[status]}
                 labels={labels}
                 onTicketClick={setSelectedTicket}
                 onClearDoneTickets={requestClearDoneTickets}
