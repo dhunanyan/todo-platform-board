@@ -1,0 +1,58 @@
+{
+  "name": "todo-platform-board",
+  "version": "1.0.0",
+  "private": true,
+  "main": "electron/main.js",
+  "scripts": {
+    "dev:web": "cross-env PLATFORM=WEB TARGET=MAC next dev",
+    "dev:desktop": "concurrently -k \"cross-env PLATFORM=DESKTOP TARGET=MAC next dev\" \"wait-on http://localhost:3000 && cross-env PLATFORM=DESKTOP TARGET=MAC electron .\"",
+    "build:web": "cross-env PLATFORM=WEB TARGET=MAC next build",
+    "build:desktop": "cross-env PLATFORM=DESKTOP TARGET=MAC next build && electron-builder",
+    "build:desktop:win": "cross-env PLATFORM=DESKTOP TARGET=WIN next build && electron-builder --win",
+    "build:desktop:mac": "cross-env PLATFORM=DESKTOP TARGET=MAC next build && electron-builder --mac",
+    "build:desktop:lin": "cross-env PLATFORM=DESKTOP TARGET=LIN next build && electron-builder --linux",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@dnd-kit/core": "^6.3.1",
+    "@dnd-kit/sortable": "^10.0.0",
+    "@dnd-kit/utilities": "^3.2.2",
+    "next": "15.3.2",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.0",
+    "cross-env": "^7.0.3",
+    "electron": "^30.5.1",
+    "electron-builder": "24.13.3",
+    "typescript": "^5.8.3",
+    "@types/node": "^22.15.17",
+    "@types/react": "^19.1.5",
+    "@types/react-dom": "^19.1.5"
+  },
+  "build": {
+    "appId": "com.todo.board",
+    "productName": "Todo Board",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "electron/**/*",
+      ".next/**/*",
+      "out/**/*",
+      "package.json"
+    ],
+    "mac": {
+      "target": "dmg"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "target": "AppImage"
+    }
+  }
+}
