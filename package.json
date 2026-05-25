@@ -24,14 +24,15 @@
     "uuid": "^11.1.0"
   },
   "devDependencies": {
+    "@types/node": "^22.15.17",
+    "@types/react": "^19.1.5",
+    "@types/react-dom": "^19.1.5",
     "concurrently": "^9.2.0",
     "cross-env": "^7.0.3",
     "electron": "^30.5.1",
     "electron-builder": "24.13.3",
     "typescript": "^5.8.3",
-    "@types/node": "^22.15.17",
-    "@types/react": "^19.1.5",
-    "@types/react-dom": "^19.1.5"
+    "wait-on": "^9.0.10"
   },
   "build": {
     "appId": "com.todo.board",
