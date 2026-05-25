@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security issue
+    url: https://github.com/dhunanyan/task-flow-board/security/advisories/new
+    about: Please report security vulnerabilities privately.
+  - name: General support
+    url: https://dhunanyan.com
+    about: Ask general usage questions here.

@@ -375,13 +375,13 @@ export default function HomePage() {
           <div className="brand-logo">
             <Image
               src="/icons/app-icon.svg"
-              alt="TaskFlow logo"
+              alt="Task Flow logo"
               width={34}
               height={34}
             />
           </div>
           <div>
-            <h1>TaskFlow Board</h1>
+            <h1>Task Flow Board</h1>
             <p>Dark agile planner with desktop + web runtime</p>
           </div>
         </div>

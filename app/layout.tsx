@@ -2,8 +2,8 @@ import "./globals.css";
 import type { Metadata, Viewport } from "next";
 import { ReactNode } from "react";
 
-const siteUrl = "https://dhunanyan.com/taskflow-board";
-const title = "TaskFlow Board";
+const siteUrl = "https://dhunanyan.com/task-flow-board";
+const title = "Task Flow Board";
 const description =
   "Production-ready dark-mode draggable Kanban board for Web and Desktop (macOS, Windows, Linux).";
 
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   },
   description,
   keywords: [
-    "TaskFlow",
+    "Task Flow",
     "Kanban",
     "Todo",
     "Task Board",
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "TaskFlow Board",
+        alt: "Task Flow Board",
       },
     ],
   },

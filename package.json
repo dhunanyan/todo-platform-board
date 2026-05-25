@@ -1,5 +1,5 @@
 {
-  "name": "todo-platform-board",
+  "name": "task-flow-board",
   "version": "1.0.0",
   "private": true,
   "main": "electron/main.js",
@@ -35,8 +35,8 @@
     "wait-on": "^9.0.10"
   },
   "build": {
-    "appId": "com.todo.board",
-    "productName": "Todo Board",
+    "appId": "com.taskflow.board",
+    "productName": "Task Flow Board",
     "directories": {
       "output": "release",
       "buildResources": "build-assets"
@@ -93,8 +93,8 @@
       ],
       "category": "Office",
       "icon": "build-assets/icon.png",
-      "synopsis": "Draggable Kanban Todo Board",
-      "description": "TaskFlow Board is a productivity-focused draggable Kanban board built with Next.js and Electron."
+      "synopsis": "Draggable Kanban Task Flow Board",
+      "description": "Task Flow Board is a productivity-focused draggable Kanban board built with Next.js and Electron."
     },
     "artifactName": "${productName}-${version}-${os}-${arch}.${ext}",
     "buildVersion": "1.0.0",
@@ -104,12 +104,12 @@
     "npmRebuild": false,
     "icon": "build-assets/icon.png",
     "extraMetadata": {
-      "name": "taskflow-board",
-      "productName": "TaskFlow Board",
+      "name": "task-flow-board",
+      "productName": "Task Flow Board",
       "description": "Dark-mode-first draggable Kanban board for web and desktop."
     },
     "dmg": {
-      "title": "TaskFlow Board",
+      "title": "Task Flow Board",
       "icon": "build-assets/icon.png",
       "writeUpdateInfo": false
     },
@@ -118,23 +118,23 @@
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
-      "shortcutName": "TaskFlow Board"
+      "shortcutName": "Task Flow Board"
     }
   },
-  "description": "TaskFlow Board: production-ready Next.js + Electron draggable Kanban board for Web and Desktop (macOS, Windows, Linux).",
+  "description": "Task Flow Board: production-ready Next.js + Electron draggable Kanban board for Web and Desktop (macOS, Windows, Linux).",
   "author": {
     "name": "Dhunanyan",
     "email": "contact@dhunanyan.com",
     "url": "https://dhunanyan.com"
   },
   "license": "MIT",
-  "homepage": "https://dhunanyan.com/taskflow-board",
+  "homepage": "https://dhunanyan.com/task-flow-board",
   "repository": {
     "type": "git",
-    "url": "https://github.com/dhunanyan/todo-platform-board.git"
+    "url": "https://github.com/dhunanyan/task-flow-board.git"
   },
   "bugs": {
-    "url": "https://github.com/dhunanyan/todo-platform-board/issues",
+    "url": "https://github.com/dhunanyan/task-flow-board/issues",
     "email": "contact@dhunanyan.com"
   },
   "keywords": [

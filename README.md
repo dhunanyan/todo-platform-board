@@ -1,4 +1,4 @@
-# Todo Board (Next.js + Electron)
+# Task Flow Board (Next.js + Electron)
 
 A complete App Router project that runs on:
 - WEB
@@ -35,7 +35,6 @@ yarn dev:web
 Desktop:
 
 ```bash
-# Example for mac
 yarn dev:desktop
 ```
 
@@ -58,9 +57,10 @@ yarn build:desktop:lin
 ## Features
 
 - Jira-like draggable board
-- Ticket fields: `id`, `title`, `description`, `label`, `status`
-- Constant columns (statuses): Open, Blocked, In Process, Waiting to be finished, Done
-- Create Ticket modal
+- Ticket fields: `id`, `title`, `description`, `label`, `status`, `priority`
+- Constant columns: Open, Blocked, In Process, Waiting to be finished, Done
+- Create/Edit Ticket modals
+- Label system with custom colors
 - Persistence:
 - Web: browser localStorage
 - Desktop: local machine file at Electron user data path under `public-assets/tickets.json`

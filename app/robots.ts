@@ -8,6 +8,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/"
     },
-    sitemap: "https://dhunanyan.com/taskflow-board/sitemap.xml"
+    sitemap: "https://dhunanyan.com/task-flow-board/sitemap.xml"
   };
 }
